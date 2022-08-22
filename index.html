@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- meta tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- meta-content -->
+  <meta name="description" content="Eldritch Horror | Board Game">
+  <meta name="keywords" content="Board Game, co-operative game, mysteries, decks, JS">
+  <!-- FONT HERE -->
+  <link href="https://fonts.googleapis.com/css?family=Rubik:regular&display=swap&subset=cyrillic-ext"
+    rel="stylesheet" />
+  <!-- FAVICON HERE -->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+  <link rel="manifest" href="assets/favicon/site.webmanifest">
+  <link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+
+  <link rel="stylesheet" href="css/styles.css">
+
+  <title>Eldritch Horror</title>
+
+  <!--[if IE]>
+          <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+          <![endif]-->
+  <!--[if lt IE 9]> <script src="html5shiv-master/dist/html5shiv.js"></script> <![endif]-->
+
+  <!--   <style>
+              article, aside, details, figcaption, figure, footer,header,
+              hgroup, menu, nav, section { display: block; }
+          </style> -->
+</head>
+
+<body>
+  <div class="wrapper">
+
+    <header class="header">
+      <div class="header__container _container">
+        HEADER
+      </div>
+    </header>
+    <main class="main">
+      <div class="main__container _container">
+        <div class="main__cards">
+          <div class="main__item">
+            <img src="/assets/Ancients/Azathoth.png" alt="Azathoth">
+          </div>
+          <div class="main__item">
+            <img src="/assets/Ancients/Cthulthu.png" alt="Cthulthu">
+          </div>
+          <div class="main__item">
+            <img src="/assets/Ancients/IogSothoth.png" alt="IogSothoth">
+          </div>
+          <div class="main__item">
+            <img src="/assets/Ancients/ShubNiggurath.png" alt="ShubNiggurath">
+          </div>
+        </div>
+        <div class="main__center">
+          <div class="main__game-info">
+            <div class="main__ancient-name">
+              <p>Имя древнего:</p>
+              <div class="main__ancient-name-value">???</div>
+            </div>
+            <div class="main__ancient-cards">
+              <div class="main__first-stage stage">
+                <div class="first-stage-green">1</div>
+                <div class="first-stage-brown">2</div>
+                <div class="first-stage-blue">1</div>
+              </div>
+              <div class="main__second-stage stage">
+                <div class="second-stage-green">2</div>
+                <div class="second-stage-brown">3</div>
+                <div class="second-stage-blue">1</div>
+              </div>
+              <div class="main__third-stage stage">
+                <div class="third-stage-green">2</div>
+                <div class="third-stage-brown">4</div>
+                <div class="third-stage-blue">0</div>
+              </div>
+            </div>
+
+          </div>
+          <div class="main__difficulty">
+            <input type="radio" id="difficulty-extra-easy" name="main__difficulty" value="Extra-easy">
+            <label for="difficulty-extra-easy"
+              title="из набора берутся все карты со снежинками, если карт не хватает то добираются обычные карты">Очень легкий</label>
+            <input type="radio" id="difficulty-easy" name="main__difficulty" value="Easy">
+            <label for="difficulty-easy" title="из набора убираются карты с щупальцами">Легкий</label>
+            <input type="radio" id="difficulty-medium" name="main__difficulty" value="Medium">
+            <label for="difficulty-medium" title="набор остается нетронутым">Средний</label>
+            <input type="radio" id="difficulty-hard" name="main__difficulty" value="Hard">
+            <label for="difficulty-hard" title="из набора убираются карты со снежинками">Тяжелый</label>
+            <input type="radio" id="difficulty-expta-hard" name="main__difficulty" value="Extra-hard">
+            <label for="difficulty-expta-hard"
+              title="из набора берутся все карты со щупальцами, если карт не хватает то добираются обычные карты">Невозможный</label>
+          </div>
+          <div class="main__crete-deck">
+            <button type="button">Замешать колоду!</button>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+
+    <footer class="footer">
+      <div class="footer__container _container">
+        Im Footer
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>
