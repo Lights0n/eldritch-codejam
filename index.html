@@ -47,16 +47,16 @@
     <main class="main">
       <div class="main__container _container">
         <div class="main__cards">
-          <div class="main__item">
+          <div class="main__item" id="azathoth-card">
             <img src="/assets/Ancients/Azathoth.png" alt="Azathoth">
           </div>
-          <div class="main__item">
+          <div class="main__item" id="cthulthu-card">
             <img src="/assets/Ancients/Cthulthu.png" alt="Cthulthu">
           </div>
-          <div class="main__item">
+          <div class="main__item" id="iogSothoth-card">
             <img src="/assets/Ancients/IogSothoth.png" alt="IogSothoth">
           </div>
-          <div class="main__item">
+          <div class="main__item" id="shubNiggurath-card">
             <img src="/assets/Ancients/ShubNiggurath.png" alt="ShubNiggurath">
           </div>
         </div>
@@ -68,19 +68,19 @@
             </div>
             <div class="main__ancient-cards">
               <div class="main__first-stage stage">
-                <div class="first-stage-green">1</div>
-                <div class="first-stage-brown">2</div>
-                <div class="first-stage-blue">1</div>
+                <div class="first-stage-green first-stage green">?</div>
+                <div class="first-stage-brown first-stage brown">?</div>
+                <div class="first-stage-blue first-stage blue">?</div>
               </div>
               <div class="main__second-stage stage">
-                <div class="second-stage-green">2</div>
-                <div class="second-stage-brown">3</div>
-                <div class="second-stage-blue">1</div>
+                <div class="second-stage-green second-stage green">?</div>
+                <div class="second-stage-brown second-stage brown">?</div>
+                <div class="second-stage-blue second-stage blue">?</div>
               </div>
               <div class="main__third-stage stage">
-                <div class="third-stage-green">2</div>
-                <div class="third-stage-brown">4</div>
-                <div class="third-stage-blue">0</div>
+                <div class="third-stage-green third-stage green">?</div>
+                <div class="third-stage-brown third-stage brown">?</div>
+                <div class="third-stage-blue third-stage blue">?</div>
               </div>
             </div>
 
@@ -88,16 +88,17 @@
           <div class="main__difficulty">
             <input type="radio" id="difficulty-extra-easy" name="main__difficulty" value="Extra-easy">
             <label for="difficulty-extra-easy"
-              title="из набора берутся все карты со снежинками, если карт не хватает то добираются обычные карты">Очень легкий</label>
+              title="из набора берутся все карты со снежинками, если карт не хватает то добираются обычные карты">Очень
+              легкий</label>
             <input type="radio" id="difficulty-easy" name="main__difficulty" value="Easy">
             <label for="difficulty-easy" title="из набора убираются карты с щупальцами">Легкий</label>
             <input type="radio" id="difficulty-medium" name="main__difficulty" value="Medium">
             <label for="difficulty-medium" title="набор остается нетронутым">Средний</label>
             <input type="radio" id="difficulty-hard" name="main__difficulty" value="Hard">
-            <label for="difficulty-hard" title="из набора убираются карты со снежинками">Тяжелый</label>
+            <label for="difficulty-hard" title="из набора убираются карты со снежинками">Высокий</label>
             <input type="radio" id="difficulty-expta-hard" name="main__difficulty" value="Extra-hard">
             <label for="difficulty-expta-hard"
-              title="из набора берутся все карты со щупальцами, если карт не хватает то добираются обычные карты">Невозможный</label>
+              title="из набора берутся все карты со щупальцами, если карт не хватает то добираются обычные карты">Очень высокий</label>
           </div>
           <div class="main__crete-deck">
             <button type="button">Замешать колоду!</button>
@@ -115,7 +116,7 @@
     </footer>
   </div>
 
-  <script src="js/script.js"></script>
+  <script type="module" src="js/script.js"></script>
 </body>
 
 </html>
