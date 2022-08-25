@@ -86,8 +86,13 @@ body {
 
 .main__item {
   cursor: pointer;
-  transition: all 0.3s ease 0s;
+  transition: all .5s ease 0s;
   opacity: 0.35;
+  filter: sepia(50%);
+}
+.main__item.active-ancient {
+  opacity: 1;
+  filter: drop-shadow(0px 0px 23px #d60316) sepia(0%);
 }
 
 .main__item:hover {
@@ -97,6 +102,7 @@ body {
 .main__item img {
   height: 100%;
   max-height: 300px;
+  border-radius: 12px;
 }
 
 /* main info */
