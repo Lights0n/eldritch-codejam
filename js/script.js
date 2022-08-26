@@ -32,7 +32,6 @@ const nextCard = document.getElementById('next-card')
 const createBtn = document.getElementById('create-deck')
 let chosenAncient;
 let myDifficulty
-let copacityVal
 let greenVal
 let brownVal
 let blueVal
@@ -133,20 +132,25 @@ const difficultyMedium = document.getElementById('difficulty-medium');
 const difficultyHard = document.getElementById('difficulty-hard');
 const difficultyExtraHard = document.getElementById('difficulty-expta-hard');
 
+import cardsDataGreen from '../data/mythicCards/green/index.js'
+import cardsDataBrown from '../data/mythicCards/brown/index.js'
+import cardsDataBlue from '../data/mythicCards/blue/index.js'
+
 // styles for chosen difficulty
 function activeDifficulty(chosen) {
   for (let label of labels) {
     label.classList.remove('active')
 
     if (label.htmlFor === chosen.id) {
-
       label.classList.add('active')
       myDifficulty = chosen.id
-
     }
 
   }
 }
+let cardsDataGreenEasy = []
+let cardsDataBrownEasy = []
+let cardsDataBlueEasy = []
 difficultyCnt.addEventListener('click', () => {
   if (difficultyExtraEasy.checked) {
     // console.log('ExtraEasy ON');
@@ -154,11 +158,31 @@ difficultyCnt.addEventListener('click', () => {
   }
   else if (difficultyEasy.checked) {
     // console.log('difficultyEasy');
+
     activeDifficulty(difficultyEasy)
+    cardsDataGreen.map((el) => {
+      if (el.difficulty != 'hard') {
+        cardsDataGreenEasy.push(el)
+      }
+    })
+    cardsDataBrown.map((el) => {
+      if (el.difficulty != 'hard') {
+        cardsDataBrownEasy.push(el)
+      }
+    })
+    cardsDataBlue.map((el) => {
+      if (el.difficulty != 'hard') {
+        cardsDataBlueEasy.push(el)
+      }
+    })
+    // console.log(cardsDataGreenEasy);
+    // console.log(cardsDataBrownEasy);
+    // console.log(cardsDataBlueEasy);
   }
   else if (difficultyMedium.checked) {
     // console.log('difficultyMedium');
     activeDifficulty(difficultyMedium)
+
   }
   else if (difficultyHard.checked) {
     // console.log('difficultyHard');
@@ -167,14 +191,14 @@ difficultyCnt.addEventListener('click', () => {
   else if (difficultyExtraHard.checked) {
     // console.log('difficultyExtraHard');
     activeDifficulty(difficultyExtraHard)
+
   }
+  console.log(myDifficulty);
 })
 
 // cards faces
 
-import cardsDataGreen from '../data/mythicCards/green/index.js'
-import cardsDataBrown from '../data/mythicCards/brown/index.js'
-import cardsDataBlue from '../data/mythicCards/blue/index.js'
+
 
 const currentCard = document.getElementById('current-card');
 
@@ -189,8 +213,6 @@ function randomGenerate(array, size, max = 5, start = 0) {
   }
   return array
 }
-
-
 
 function shuffle(array) {
   let currentIndex = array.length, randomIndex;
@@ -248,12 +270,36 @@ createBtn.addEventListener('click', () => {
   thirdDeckFull = []
 
   if (myDifficulty && chosenAncient) {
-    // console.log('we`re done');
     // todo main algoritm
+    let allGreenForGame
+    let allBrownForGame
+    let allBlueForGame
+
+    let greenDeck = []
+    let brownDeck = []
+    let blueDeck = []
+    if (myDifficulty == 'difficulty-easy') {
+      greenDeck = cardsDataGreenEasy
+      brownDeck = cardsDataBrownEasy
+      blueDeck = cardsDataBlueEasy
+      console.log('Легкая сложность');
+
+    }
+    else {
+      greenDeck = cardsDataGreen
+      brownDeck = cardsDataBrown
+      blueDeck = cardsDataBlue
+      console.log('Средняя сложность');
+
+    }
+    allGreenForGame = randomGenerate(allGreen, +fSGreen.innerHTML + +sSGreen.innerHTML + +thSGreen.innerHTML, greenDeck.length)
+    allBrownForGame = randomGenerate(allBrown, +fSBrown.innerHTML + +sSBrown.innerHTML + +thSBrown.innerHTML, brownDeck.length)
+    allBlueForGame = randomGenerate(allBlue, +fSblue.innerHTML + +sSblue.innerHTML + +thSblue.innerHTML, blueDeck.length)
+    // cardsDataGreenEasy
+    // cardsDataBrownEasy
+    // cardsDataBlueEasy
     //      индексы карт для игры  по цветам     
-    let allGreenForGame = randomGenerate(allGreen, +fSGreen.innerHTML + +sSGreen.innerHTML + +thSGreen.innerHTML, cardsDataGreen.length)
-    let allBrownForGame = randomGenerate(allBrown, +fSBrown.innerHTML + +sSBrown.innerHTML + +thSBrown.innerHTML, cardsDataBrown.length)
-    let allBlueForGame = randomGenerate(allBlue, +fSblue.innerHTML + +sSblue.innerHTML + +thSblue.innerHTML, cardsDataBlue.length)
+
     shuffle(allGreenForGame)
     shuffle(allBrownForGame)
     shuffle(allBlueForGame)
@@ -272,9 +318,9 @@ createBtn.addEventListener('click', () => {
 
 
     // составляем массивы карт по индексам что сверху
-    greenThree = createColorDeck(cardsDataGreen, greenThreeIndexes, greenThree)
-    brownThree = createColorDeck(cardsDataBrown, BrownThreeIndexes, brownThree)
-    blueThree = createColorDeck(cardsDataBlue, BlueThreeIndexes, blueThree)
+    greenThree = createColorDeck(greenDeck, greenThreeIndexes, greenThree)
+    brownThree = createColorDeck(brownDeck, BrownThreeIndexes, brownThree)
+    blueThree = createColorDeck(blueDeck, BlueThreeIndexes, blueThree)
 
     // бурем себе нужное количество для 2 стадии с начала цветной колоды и режем колоду дальше
     let greenTwoIndexes = allGreenForGame.slice(0, +sSGreen.innerHTML)
@@ -288,9 +334,9 @@ createBtn.addEventListener('click', () => {
     allBlueForGame.splice(0, +sSblue.innerHTML)
 
     // составляем массивы карт по индексам что сверху
-    greenTwo = createColorDeck(cardsDataGreen, greenTwoIndexes, greenTwo)
-    brownTwo = createColorDeck(cardsDataBrown, BrownTwoIndexes, brownTwo)
-    blueTwo = createColorDeck(cardsDataBlue, BlueTwoIndexes, blueTwo)
+    greenTwo = createColorDeck(greenDeck, greenTwoIndexes, greenTwo)
+    brownTwo = createColorDeck(brownDeck, BrownTwoIndexes, brownTwo)
+    blueTwo = createColorDeck(blueDeck, BlueTwoIndexes, blueTwo)
 
     // 1st
 
@@ -309,9 +355,9 @@ createBtn.addEventListener('click', () => {
     allBlueForGame.splice(0, +fSblue.innerHTML)
 
     // составляем массивы карт по индексам что сверху
-    greenOne = createColorDeck(cardsDataGreen, greenOneIndexes, greenOne)
-    brownOne = createColorDeck(cardsDataBrown, BrownOneIndexes, brownOne)
-    blueOne = createColorDeck(cardsDataBlue, BlueOneIndexes, blueOne)
+    greenOne = createColorDeck(greenDeck, greenOneIndexes, greenOne)
+    brownOne = createColorDeck(brownDeck, BrownOneIndexes, brownOne)
+    blueOne = createColorDeck(blueDeck, BlueOneIndexes, blueOne)
 
     // console.log(greenTwo);
     // console.log(brownTwo);

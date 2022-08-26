@@ -261,6 +261,7 @@ body {
   height: 300px;
 }
 #next-card {
+  cursor: pointer;
 }
 #current-card {
 }
