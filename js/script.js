@@ -172,13 +172,11 @@ difficultyCnt.addEventListener('click', () => {
 
 // cards faces
 
-import cardsDataGreen from '../data/MythicCards/green/index.js'
-import cardsDataBrown from '../data/MythicCards/brown/index.js'
-import cardsDataBlue from '../data/MythicCards/blue/index.js'
+import cardsDataGreen from '../data/mythicCards/green/index.js'
+import cardsDataBrown from '../data/mythicCards/brown/index.js'
+import cardsDataBlue from '../data/mythicCards/blue/index.js'
 
 const currentCard = document.getElementById('current-card');
-
-// currentCard.src = cardsDataBlue[8].cardFace
 
 // decks main algritm
 
@@ -191,15 +189,7 @@ function randomGenerate(array, size, max = 5, start = 0) {
   }
   return array
 }
-// cardsDataGreen
-// cardsDataBrown
-// cardsDataBlue
-// createBtn
 
-// количество карт
-// greenVal
-// brownVal
-// blueVal
 
 
 function shuffle(array) {
@@ -335,9 +325,9 @@ createBtn.addEventListener('click', () => {
 
     firstDeckFull = firstDeckFull.concat(greenOne, brownOne, blueOne)
     shuffle(firstDeckFull)
-    console.log(thirdDeckFull);
-    console.log(secondDeckFull);
     console.log(firstDeckFull, 'first');
+    console.log(secondDeckFull, ' second');
+    console.log(thirdDeckFull, ' third');
   }
   else if (!chosenAncient) {
     alert('выберите Древнего!')
@@ -400,6 +390,7 @@ function showNextCard(deck3, deck2, deck1) {
     deck3.pop()
     if (deck3.length == 0) {
       nextCard.src = ''
+      console.log('конец игры');
     }
   }
   else {

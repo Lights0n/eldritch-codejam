@@ -1,5 +1,3 @@
-// import blueCardsAssets from '../../../assets/MythicCards/blue';
-
 const cardsDataBlue = [
   {
     id: 'blue1',
@@ -72,7 +70,6 @@ const cardsDataBlue = [
     cardFace: 'assets/MythicCards/blue/blue12.png',
     difficulty: 'normal',
     color: 'blue'
-  },
+  }
 ]
-
-export default cardsDataBlue
+export default cardsDataBlue;
