@@ -181,13 +181,12 @@ const currentCard = document.getElementById('current-card');
 currentCard.src = cardsDataBlue[8].cardFace
 
 // decks main algritm
-console.log(cardsDataGreen);
-console.log(cardsDataBrown);
-console.log(cardsDataBlue);
+// console.log(cardsDataGreen);
+// console.log(cardsDataBrown);
+// console.log(cardsDataBlue);
 
 let extraEasyDeck
 let mediumDeck
-let arr = []
 
 function randomGenerate(array, size, max = 5, start = 0) {
   array = []
@@ -207,10 +206,6 @@ function randomGenerate(array, size, max = 5, start = 0) {
 // greenVal
 // brownVal
 // blueVal
-console.log(randomGenerate(arr, 5));
-let thirdGreen = []
-let thirdBrown = []
-let thirdBlue = []
 
 
 function shuffle(array) {
@@ -230,30 +225,97 @@ function shuffle(array) {
 
   return array;
 }
-let greenThree = []
-let brownThree = []
-let blueThree = []
+
+// сосставляем колоды по индексам
+function createColorDeck(cardsDataColor, cardsDataIdexes, colorArray) {
+  cardsDataColor.map((el, ind) => {
+    if (cardsDataIdexes.includes(ind)) {
+      colorArray.push(el)
+    }
+  })
+  return colorArray
+}
+
+let thirdDeckFull = []
+let secondDeckFull = []
 createBtn.addEventListener('click', () => {
-  greenThree = []
+  let arr1 = []
+  let arr2 = []
+  let arr3 = []
+
+  let allGreen = []
+  let allBrown = []
+  let allBlue = []
+
+  let greenTwo = []
+  let brownTwo = []
+  let blueTwo = []
+  secondDeckFull = []
+
+  let greenThree = []
+  let brownThree = []
+  let blueThree = []
+
+  thirdDeckFull = []
+
   if (myDifficulty && chosenAncient) {
-    console.log('we`re done');
+    // console.log('we`re done');
     // todo main algoritm
-    //              
-
-    let greenThreeIndexes = randomGenerate(arr, +thSGreen.innerHTML, cardsDataGreen.length)
-    // console.log(randomGenerate(arr, +thSGreen.innerHTML));
-    console.log(greenThreeIndexes);
-
-    cardsDataGreen.map((el, ind) => {
-      if (greenThreeIndexes.includes(ind)) {
-        greenThree.push(el)
-      }
-    })
-
-    shuffle(greenThree)
-    // console.log(greenThree);
+    //      индексы карт для игры  по цветам     
+    let allGreenForGame = randomGenerate(allGreen, +fSGreen.innerHTML + +sSGreen.innerHTML + +thSGreen.innerHTML, cardsDataGreen.length)
+    let allBrownForGame = randomGenerate(allBrown, +fSBrown.innerHTML + +sSBrown.innerHTML + +thSBrown.innerHTML, cardsDataBrown.length)
+    let allBlueForGame = randomGenerate(allBlue, +fSblue.innerHTML + +sSblue.innerHTML + +thSblue.innerHTML, cardsDataBlue.length)
+    shuffle(allGreenForGame)
+    shuffle(allBrownForGame)
+    shuffle(allBlueForGame)
 
 
+    // бурем себе нужное количество для 3 стадии с начала цветной колоды и режем колоду дальше
+    let greenThreeIndexes = allGreenForGame.slice(0, +thSGreen.innerHTML)
+    // режем колоду
+    allGreenForGame.splice(0, +thSGreen.innerHTML)
+
+    let BrownThreeIndexes = allBrownForGame.slice(0, thSBrown.innerHTML)
+    allBrownForGame.splice(0, +thSBrown.innerHTML)
+
+    let BlueThreeIndexes = allBlueForGame.slice(0, thSblue.innerHTML)
+    allBlueForGame.splice(0, +thSblue.innerHTML)
+
+
+    // составляем массивы карт по индексам что сверху
+    greenThree = createColorDeck(cardsDataGreen, greenThreeIndexes, greenThree)
+    brownThree = createColorDeck(cardsDataBrown, BrownThreeIndexes, brownThree)
+    blueThree = createColorDeck(cardsDataBlue, BlueThreeIndexes, blueThree)
+
+    // бурем себе нужное количество для 2 стадии с начала цветной колоды и режем колоду дальше
+    let greenTwoIndexes = allGreenForGame.slice(0, +sSGreen.innerHTML)
+    // режем колоду
+    allGreenForGame.splice(0, +sSGreen.innerHTML)
+
+    let BrownTwoIndexes = allBrownForGame.slice(0, sSBrown.innerHTML)
+    allBrownForGame.splice(0, +sSBrown.innerHTML)
+
+    let BlueTwoIndexes = allBlueForGame.slice(0, sSblue.innerHTML)
+    allBlueForGame.splice(0, +sSblue.innerHTML)
+
+    // составляем массивы карт по индексам что сверху
+    greenTwo = createColorDeck(cardsDataGreen, greenTwoIndexes, greenTwo)
+    brownTwo = createColorDeck(cardsDataBrown, BrownTwoIndexes, brownTwo)
+    blueTwo = createColorDeck(cardsDataBlue, BlueTwoIndexes, blueTwo)
+
+
+
+    // console.log(greenTwo);
+    // console.log(brownTwo);
+    // console.log(blueTwo);
+
+    thirdDeckFull = thirdDeckFull.concat(greenThree, brownThree, blueThree)
+    shuffle(thirdDeckFull)
+
+    secondDeckFull = secondDeckFull.concat(greenTwo, brownTwo, blueTwo)
+    shuffle(secondDeckFull)
+    console.log(thirdDeckFull);
+    console.log(secondDeckFull);
   }
   else if (!chosenAncient) {
     alert('выберите Древнего!')
@@ -262,20 +324,58 @@ createBtn.addEventListener('click', () => {
     alert('выберите сложность!')
   }
 })
-function showNextCard(deck) {
+function showNextCard(deck3, deck2, deck1 = []) {
 
-  if (deck.length > 0) {
-    currentCard.src = deck[deck.length - 1].cardFace
-    deck.pop()
-    thSGreen.textContent = +thSGreen.innerHTML - 1
-
+  // sSGreen
+  // sSblue
+  // sSBrown
+  if (deck1.length == 0 && deck2.length > 0) {
+    currentCard.src = deck2[deck2.length - 1].cardFace
+    if (deck2[deck2.length - 1].color == 'green') {
+      console.log('green');
+      sSGreen.textContent = +sSGreen.innerHTML - 1
+    }
+    else if (deck2[deck2.length - 1].color == 'brown') {
+      console.log('brown');
+      sSBrown.textContent = +sSBrown.innerHTML - 1
+    }
+    if (deck2[deck2.length - 1].color == 'blue') {
+      console.log('blue');
+      sSblue.textContent = +sSblue.innerHTML - 1
+    }
+    deck2.pop()
+    console.log(deck2);
   }
+  else if (deck3.length > 0) {
+    currentCard.src = deck3[deck3.length - 1].cardFace
+    if (deck3[deck3.length - 1].color == 'green') {
+      console.log('green');
+      thSGreen.textContent = +thSGreen.innerHTML - 1
+    }
+    else if (deck3[deck3.length - 1].color == 'brown') {
+      console.log('brown');
+      thSBrown.textContent = +thSBrown.innerHTML - 1
+    }
+    if (deck3[deck3.length - 1].color == 'blue') {
+      console.log('blue');
+      thSBlue.textContent = +thSBlue.innerHTML - 1
+    }
+    deck3.pop()
+    console.log(deck3);
+    console.log(deck2);
+  }
+  // todo 1 stage
+  // else if (deck.length == 0 && deck2.length > 0) {
+  //   // alert('конец игры')
+  // }
   else {
-    alert('конец игры')
+    console.log('конец игры');
   }
 
 
 }
+
 nextCard.addEventListener('click', () => {
-  showNextCard(greenThree)
+
+  showNextCard(thirdDeckFull, secondDeckFull)
 })
