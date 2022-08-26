@@ -35,7 +35,7 @@ body {
   font-size: 16px;
   color: #fffc47;
   background: radial-gradient(circle, rgba(59, 25, 40, 1) 0%, rgba(34, 25, 130, 1) 87%);
-  background-image: url("/assets/home.png");
+  background-image: url("assets/home.png");
   /* background-color: #66371b; */
   background-repeat: no-repeat;
   background-position: center center;
