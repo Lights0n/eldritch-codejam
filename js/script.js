@@ -178,15 +178,9 @@ import cardsDataBlue from '../data/MythicCards/blue/index.js'
 
 const currentCard = document.getElementById('current-card');
 
-currentCard.src = cardsDataBlue[8].cardFace
+// currentCard.src = cardsDataBlue[8].cardFace
 
 // decks main algritm
-// console.log(cardsDataGreen);
-// console.log(cardsDataBrown);
-// console.log(cardsDataBlue);
-
-let extraEasyDeck
-let mediumDeck
 
 function randomGenerate(array, size, max = 5, start = 0) {
   array = []
@@ -236,16 +230,21 @@ function createColorDeck(cardsDataColor, cardsDataIdexes, colorArray) {
   return colorArray
 }
 
-let thirdDeckFull = []
+let firstDeckFull = []
 let secondDeckFull = []
+let thirdDeckFull = []
 createBtn.addEventListener('click', () => {
-  let arr1 = []
-  let arr2 = []
-  let arr3 = []
+  nextCard.src = './assets/mythicCardBackground.png'
+  currentCard.src = ''
 
   let allGreen = []
   let allBrown = []
   let allBlue = []
+
+  let greenOne = []
+  let brownOne = []
+  let blueOne = []
+  firstDeckFull = []
 
   let greenTwo = []
   let brownTwo = []
@@ -303,7 +302,26 @@ createBtn.addEventListener('click', () => {
     brownTwo = createColorDeck(cardsDataBrown, BrownTwoIndexes, brownTwo)
     blueTwo = createColorDeck(cardsDataBlue, BlueTwoIndexes, blueTwo)
 
+    // 1st
 
+    // +fSGreen.innerHTML
+    // +fSblue.innerHTML
+    // +fSBrown.innerHTML
+    // бурем себе нужное количество для 1 стадии с начала цветной колоды и режем колоду дальше
+    let greenOneIndexes = allGreenForGame.slice(0, +fSGreen.innerHTML)
+    // режем колоду
+    allGreenForGame.splice(0, +fSGreen.innerHTML)
+
+    let BrownOneIndexes = allBrownForGame.slice(0, +fSBrown.innerHTML)
+    allBrownForGame.splice(0, +fSBrown.innerHTML)
+
+    let BlueOneIndexes = allBlueForGame.slice(0, +fSblue.innerHTML)
+    allBlueForGame.splice(0, +fSblue.innerHTML)
+
+    // составляем массивы карт по индексам что сверху
+    greenOne = createColorDeck(cardsDataGreen, greenOneIndexes, greenOne)
+    brownOne = createColorDeck(cardsDataBrown, BrownOneIndexes, brownOne)
+    blueOne = createColorDeck(cardsDataBlue, BlueOneIndexes, blueOne)
 
     // console.log(greenTwo);
     // console.log(brownTwo);
@@ -314,8 +332,12 @@ createBtn.addEventListener('click', () => {
 
     secondDeckFull = secondDeckFull.concat(greenTwo, brownTwo, blueTwo)
     shuffle(secondDeckFull)
+
+    firstDeckFull = firstDeckFull.concat(greenOne, brownOne, blueOne)
+    shuffle(firstDeckFull)
     console.log(thirdDeckFull);
     console.log(secondDeckFull);
+    console.log(firstDeckFull, 'first');
   }
   else if (!chosenAncient) {
     alert('выберите Древнего!')
@@ -324,12 +346,27 @@ createBtn.addEventListener('click', () => {
     alert('выберите сложность!')
   }
 })
-function showNextCard(deck3, deck2, deck1 = []) {
+function showNextCard(deck3, deck2, deck1) {
 
-  // sSGreen
-  // sSblue
-  // sSBrown
-  if (deck1.length == 0 && deck2.length > 0) {
+  if (deck1.length > 0) {
+    currentCard.src = deck1[deck1.length - 1].cardFace
+    if (deck1[deck1.length - 1].color == 'green') {
+      console.log('green');
+      fSGreen.textContent = +fSGreen.innerHTML - 1
+    }
+    else if (deck1[deck1.length - 1].color == 'brown') {
+      console.log('brown');
+      fSBrown.textContent = +fSBrown.innerHTML - 1
+    }
+    if (deck1[deck1.length - 1].color == 'blue') {
+      console.log('blue');
+      fSblue.textContent = +fSblue.innerHTML - 1
+    }
+    deck1.pop()
+    console.log(deck1);
+  }
+
+  else if (deck1.length == 0 && deck2.length > 0) {
     currentCard.src = deck2[deck2.length - 1].cardFace
     if (deck2[deck2.length - 1].color == 'green') {
       console.log('green');
@@ -346,7 +383,7 @@ function showNextCard(deck3, deck2, deck1 = []) {
     deck2.pop()
     console.log(deck2);
   }
-  else if (deck3.length > 0) {
+  else if (deck2.length == 0 && deck3.length > 0) {
     currentCard.src = deck3[deck3.length - 1].cardFace
     if (deck3[deck3.length - 1].color == 'green') {
       console.log('green');
@@ -361,21 +398,18 @@ function showNextCard(deck3, deck2, deck1 = []) {
       thSBlue.textContent = +thSBlue.innerHTML - 1
     }
     deck3.pop()
-    console.log(deck3);
-    console.log(deck2);
+    if (deck3.length == 0) {
+      nextCard.src = ''
+    }
   }
-  // todo 1 stage
-  // else if (deck.length == 0 && deck2.length > 0) {
-  //   // alert('конец игры')
-  // }
   else {
     console.log('конец игры');
+    alert(`конец игры!
+    Выберите Древнего и сложность для новой игры!`);
   }
-
-
 }
 
 nextCard.addEventListener('click', () => {
 
-  showNextCard(thirdDeckFull, secondDeckFull)
+  showNextCard(thirdDeckFull, secondDeckFull, firstDeckFull)
 })
