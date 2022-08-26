@@ -24,9 +24,14 @@ const copacityBlue = document.querySelector('.copacity-blue');
 
 
 const AncientName = document.querySelector('.main__ancient-name');
+
 const ancients = document.querySelectorAll('.main__item');
+
+const nextCard = document.getElementById('next-card')
+
+const createBtn = document.getElementById('create-deck')
 let chosenAncient;
-let difficulty
+let myDifficulty
 let copacityVal
 let greenVal
 let brownVal
@@ -128,18 +133,18 @@ const difficultyMedium = document.getElementById('difficulty-medium');
 const difficultyHard = document.getElementById('difficulty-hard');
 const difficultyExtraHard = document.getElementById('difficulty-expta-hard');
 
-let myDifficulty
 // styles for chosen difficulty
 function activeDifficulty(chosen) {
   for (let label of labels) {
     label.classList.remove('active')
 
     if (label.htmlFor === chosen.id) {
-      console.log(chosen.id);
+
       label.classList.add('active')
       myDifficulty = chosen.id
-      console.log(myDifficulty);
+
     }
+
   }
 }
 difficultyCnt.addEventListener('click', () => {
@@ -184,14 +189,93 @@ let extraEasyDeck
 let mediumDeck
 let arr = []
 
-function randomGenerate(array, end, start = 0) {
+function randomGenerate(array, size, max = 5, start = 0) {
   array = []
-  while (array.length < end) {
-    let el = Math.floor(Math.random() * 10);
+  while (array.length < size) {
+    let el = Math.floor(Math.random() * max);
     if (array.includes(el)) continue;
     else array.push(el)
   }
   return array
 }
+// cardsDataGreen
+// cardsDataBrown
+// cardsDataBlue
+// createBtn
 
+// количество карт
+// greenVal
+// brownVal
+// blueVal
 console.log(randomGenerate(arr, 5));
+let thirdGreen = []
+let thirdBrown = []
+let thirdBlue = []
+
+
+function shuffle(array) {
+  let currentIndex = array.length, randomIndex;
+
+  // пока остались жоементы для перемешивания
+  while (currentIndex != 0) {
+
+    // берем оставшийся элемент
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // и меняем его с нужным элементом
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+let greenThree = []
+let brownThree = []
+let blueThree = []
+createBtn.addEventListener('click', () => {
+  greenThree = []
+  if (myDifficulty && chosenAncient) {
+    console.log('we`re done');
+    // todo main algoritm
+    //              
+
+    let greenThreeIndexes = randomGenerate(arr, +thSGreen.innerHTML, cardsDataGreen.length)
+    // console.log(randomGenerate(arr, +thSGreen.innerHTML));
+    console.log(greenThreeIndexes);
+
+    cardsDataGreen.map((el, ind) => {
+      if (greenThreeIndexes.includes(ind)) {
+        greenThree.push(el)
+      }
+    })
+
+    shuffle(greenThree)
+    // console.log(greenThree);
+
+
+  }
+  else if (!chosenAncient) {
+    alert('выберите Древнего!')
+  }
+  else if (!myDifficulty) {
+    alert('выберите сложность!')
+  }
+})
+function showNextCard(deck) {
+
+  if (deck.length > 0) {
+    currentCard.src = deck[deck.length - 1].cardFace
+    deck.pop()
+    thSGreen.textContent = +thSGreen.innerHTML - 1
+
+  }
+  else {
+    alert('конец игры')
+  }
+
+
+}
+nextCard.addEventListener('click', () => {
+  showNextCard(greenThree)
+})
